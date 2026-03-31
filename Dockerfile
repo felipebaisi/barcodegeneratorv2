@@ -30,6 +30,9 @@ RUN npm ci --only=production && npm cache clean --force
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist
 
+# Copy static web assets
+COPY public ./public
+
 # Create output directory and non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup \
   && mkdir -p /app/out && chown -R appuser:appgroup /app/out
