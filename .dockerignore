@@ -12,12 +12,10 @@ dist/
 .env
 .env.local
 
-# Source
-src/
+# Tests only (src/ and tsconfig.json are needed for the build)
 tests/
 
-# Config
-tsconfig.json
+# Config (not needed in Docker build)
 jest.config.js
 .eslintrc.cjs
 .prettierrc
