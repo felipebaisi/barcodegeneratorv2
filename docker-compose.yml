@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  barcode-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: barcode-generator
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - LOG_LEVEL=info
+      - LOG_PRETTY=false
+      - DEFAULT_SCALE=3
+      - DEFAULT_FORMAT=png
+      - DEFAULT_ECLEVEL_PDF417=2
+      - DEFAULT_ECLEVEL_QR=M
+    volumes:
+      - ./out:/app/out
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

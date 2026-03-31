@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: barcode-generator
+    runtime: docker
+    plan: free
+    region: oregon   # closest free-tier region to US East
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: LOG_LEVEL
+        value: info
+      - key: LOG_PRETTY
+        value: false

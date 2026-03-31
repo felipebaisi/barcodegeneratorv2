@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔲 Barcode Generator</h1>
+            <p class="subtitle">Generate PDF417, Code 39 (VIN), and QR Code barcodes</p>
+            <nav class="header-nav">
+                <a href="/drivers-license.html" class="nav-link">🪪 Driver's License Generator →</a>
+            </nav>
+        </header>
+
+        <main>
+            <form id="barcodeForm" class="form">
+                <!-- Barcode Type Selection -->
+                <div class="form-group">
+                    <label for="barcodeType">Barcode Type</label>
+                    <select id="barcodeType" name="type" required>
+                        <option value="qrcode">QR Code</option>
+                        <option value="pdf417">PDF417</option>
+                        <option value="code39">Code 39 (VIN)</option>
+                    </select>
+                    <small class="help-text" id="typeHelp">Standard 2D barcode for URLs, text, etc.</small>
+                </div>
+
+                <!-- Text Input -->
+                <div class="form-group">
+                    <label for="barcodeText">Text/Data</label>
+                    <textarea 
+                        id="barcodeText" 
+                        name="text" 
+                        rows="4" 
+                        placeholder="Enter text to encode..."
+                        required
+                        maxlength="4296"
+                    ></textarea>
+                    <small class="help-text" id="textHelp">
+                        <span id="charCount">0</span> / <span id="maxChars">4,296</span> characters
+                    </small>
+                    <div class="validation-message" id="validationMessage"></div>
+                </div>
+
+                <!-- Output Format -->
+                <div class="form-group">
+                    <label for="outputFormat">Output Format</label>
+                    <select id="outputFormat" name="format">
+                        <option value="png">PNG (Raster)</option>
+                        <option value="svg">SVG (Vector)</option>
+                    </select>
+                    <small class="help-text">SVG recommended for printing and scaling</small>
+                </div>
+
+                <!-- Advanced Options -->
+                <details class="advanced-options">
+                    <summary>Advanced Options</summary>
+                    <div class="options-grid">
+                        <!-- Scale -->
+                        <div class="form-group">
+                            <label for="scale">Scale</label>
+                            <input type="number" id="scale" name="scale" value="3" min="1" max="10" step="1">
+                            <small class="help-text">Size multiplier (1-10)</small>
+                        </div>
+
+                        <!-- Error Correction -->
+                        <div class="form-group" id="eclevelGroup">
+                            <label for="eclevel">Error Correction</label>
+                            <select id="eclevel" name="eclevel">
+                                <option value="L">Low (7%)</option>
+                                <option value="M" selected>Medium (15%)</option>
+                                <option value="Q">Quartile (25%)</option>
+                                <option value="H">High (30%)</option>
+                            </select>
+                            <small class="help-text">Adds redundant data so barcode remains readable even if partially damaged or obscured. Higher levels = more protection but larger barcode size.</small>
+                        </div>
+
+                        <!-- Mod 43 Checksum (Code 39 only) -->
+                        <div class="form-group" id="mod43Group" style="display: none;">
+                            <label>
+                                <input type="checkbox" id="mod43" name="mod43">
+                                Enable Mod 43 Checksum
+                            </label>
+                            <small class="help-text">Additional validation for VINs</small>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary" id="generateBtn">
+                        <span class="btn-text">Generate Barcode</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+                </div>
+            </form>
+
+            <!-- Preview Section -->
+            <div id="previewSection" class="preview-section" style="display: none;">
+                <h2>Preview</h2>
+                <div class="preview-container">
+                    <img id="previewImage" alt="Generated barcode">
+                    <div id="previewSvg"></div>
+                </div>
+                <div class="preview-actions">
+                    <button type="button" class="btn btn-success" id="downloadBtn">
+                        📥 Download Barcode
+                    </button>
+                    <div class="preview-info">
+                        <small id="previewInfo"></small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="errorSection" class="error-section" style="display: none;">
+                <h3>⚠️ Error</h3>
+                <p id="errorMessage"></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by <a href="https://github.com/metafloor/bwip-js" target="_blank">bwip-js</a> | 
+               <a href="https://github.com" target="_blank">View Documentation</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

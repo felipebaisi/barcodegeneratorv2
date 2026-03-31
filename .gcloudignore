@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Node
+node_modules/
+
+# TypeScript source (compiled to dist/ by Cloud Build)
+# Remove the next line if you want Cloud Build to compile from source
+# src/
+
+# Tests
+tests/
+jest.config.js
+
+# Local dev
+.env
+.env.*
+!.env.example
+docker-compose.yml
+out/
+
+# Docs
+*.md
+!README.md

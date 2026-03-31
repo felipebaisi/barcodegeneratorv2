@@ -1,0 +1,42 @@
+# Docker
+.dockerignore
+
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.local
+
+# Source
+src/
+tests/
+
+# Config
+tsconfig.json
+jest.config.js
+.eslintrc.cjs
+.prettierrc
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+coverage/
+
+# Output
+out/
+examples/
